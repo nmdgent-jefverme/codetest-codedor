@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReceptTable extends Migration
+class AddCategoryIdToRecipes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateReceptTable extends Migration
      */
     public function up()
     {
-        Schema::create('recept', function (Blueprint $table) {
-            $table->id();
-            $table->text('instructions');
-            $table->double('time');
-            $table->softDeletes();
+        Schema::table('recipes', function (Blueprint $table) {
+            $table->integer('category_id');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateReceptTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recept');
+        Schema::table('recipes', function (Blueprint $table) {
+            $table->dropColumn('category_id');
+        });
     }
 }
